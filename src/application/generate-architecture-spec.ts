@@ -79,7 +79,7 @@ export class GenerateArchitectureSpecUseCase {
     zodError: z.ZodError,
     operation: string,
   ): ValidationError {
-    const firstIssue = zodError.issues[0];
+    const firstIssue = zodError.issues[0]!;
     return new ValidationError(
       firstIssue.path.join("."),
       firstIssue.message,

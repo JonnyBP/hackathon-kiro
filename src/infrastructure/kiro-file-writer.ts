@@ -164,7 +164,7 @@ export class KiroFileWriter implements FileWriterPort {
     lines.push("## Tasks");
     lines.push("");
     for (let i = 0; i < tasks.length; i++) {
-      const task = tasks[i];
+      const task = tasks[i]!;
       const deps =
         task.dependencies.length > 0
           ? ` (depends on: ${task.dependencies.join(", ")})`
