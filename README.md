@@ -16,15 +16,15 @@ Implements **Agent 2** (Software Architect) and **Agent 4** (DevSecOps), and con
 
 ## 📦 Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Runtime | Node.js 22, TypeScript 5.8 (strict) |
-| Framework | Next.js 15 (App Router) |
-| LLM | Vercel AI SDK (`generateObject` with schema enforcement) |
-| Validation | Zod (compile-time types + runtime validation) |
-| Testing | Vitest + fast-check (property-based testing) |
-| Infrastructure | Docker multi-stage, GitHub Actions CI/CD |
-| Offline Mode | MockLlmClient with pre-built responses |
+| Layer          | Technology                                               |
+| -------------- | -------------------------------------------------------- |
+| Runtime        | Node.js 22, TypeScript 5.8 (strict)                      |
+| Framework      | Next.js 15 (App Router)                                  |
+| LLM            | Vercel AI SDK (`generateObject` with schema enforcement) |
+| Validation     | Zod (compile-time types + runtime validation)            |
+| Testing        | Vitest + fast-check (property-based testing)             |
+| Infrastructure | Docker multi-stage, GitHub Actions CI/CD                 |
+| Offline Mode   | MockLlmClient with pre-built responses                   |
 
 ## 🏗️ Pipeline
 
@@ -32,12 +32,12 @@ Implements **Agent 2** (Software Architect) and **Agent 4** (DevSecOps), and con
 Idea → Agent 1 → Agent 2 → Agent 3 → Agent 4 → 🚀 Ready to Code
 ```
 
-| # | Agent | Responsibility | Output | Status |
-|---|-------|---------------|--------|--------|
-| 1 | PM & Market Strategist | Market validation, competition, TAM/SAM/SOM | HTML report + JSON + `product.md` | 📝 Guidelines |
-| 2 | Software Architect | Stack, Clean Architecture, EARS requirements, AWS costs | `tech.md`, `requirements.md`, `design.md`, `tasks.md` | ✅ Implemented |
-| 3 | Legal & Compliance | Privacy, licenses, GDPR/LFPDPPP, regulations | `compliance.md` with Agent 4 payload | 📝 Guidelines |
-| 4 | DevSecOps & Automation | Docker, CI/CD, security hooks | `Dockerfile`, `docker-compose.yml`, `ci.yml`, hooks | ✅ Implemented |
+| #   | Agent                  | Responsibility                                          | Output                                                | Status         |
+| --- | ---------------------- | ------------------------------------------------------- | ----------------------------------------------------- | -------------- |
+| 1   | PM & Market Strategist | Market validation, competition, TAM/SAM/SOM             | HTML report + JSON + `product.md`                     | 📝 Guidelines  |
+| 2   | Software Architect     | Stack, Clean Architecture, EARS requirements, AWS costs | `tech.md`, `requirements.md`, `design.md`, `tasks.md` | ✅ Implemented |
+| 3   | Legal & Compliance     | Privacy, licenses, GDPR/LFPDPPP, regulations            | `compliance.md` with Agent 4 payload                  | 📝 Guidelines  |
+| 4   | DevSecOps & Automation | Docker, CI/CD, security hooks                           | `Dockerfile`, `docker-compose.yml`, `ci.yml`, hooks   | ✅ Implemented |
 
 ## 🚀 Quick Start
 
@@ -62,13 +62,26 @@ npm run dev
 
 The visual interface lives on the [`feat/ui-demo`](https://github.com/elecodes/hackathon-kiro/tree/feat/ui-demo) branch.
 
-**Repo:** [github.com/elecodes/hackathon-kiro](https://github.com/elecodes/hackathon-kiro) — branch `feat/ui-demo`
+**Run it locally:**
+
+```bash
+git clone https://github.com/elecodes/hackathon-kiro.git
+cd hackathon-kiro
+git checkout feat/ui-demo
+npm install
+npm run dev
+# Open http://localhost:3000
+```
 
 Features:
-- Simulated browser layout with per-agent tabs (Market, Technical, Costs, Compliance, Tasks)
-- Two input modes: quick (1-2 sentences) and expert (full brief)
-- Real-time 4-agent pipeline visualization
-- Next.js App Router with React components
+
+- 4-agent pipeline visualization with animated status (idle → running → done)
+- Product idea input with pre-filled example
+- "Run Full Pipeline" button triggers all agents sequentially
+- 8 output tabs: Product, Tech Steering, Requirements, Design, Tasks, Compliance, Dockerfile, CI/CD
+- Reads real `.kiro/` workspace files, falls back to mock data when files don't exist
+- Works 100% offline, no API keys needed
+- Dark theme (GitHub-style), responsive layout
 
 Full design spec in [`ui-design.md`](./ui-design.md).
 
@@ -120,12 +133,12 @@ Contains the full prompt, configuration, HTML templates, and example I/O for the
 
 **Output:**
 
-| File | Content |
-|------|---------|
-| `.kiro/steering/tech.md` | Stack, Clean Architecture, SOLID, security policies |
-| `.kiro/specs/requirements.md` | Requirements in EARS syntax (WHEN/SHALL) |
-| `.kiro/specs/design.md` | DDD entities, Mermaid diagram, IAM policies, AWS costs |
-| `.kiro/specs/tasks.md` | Sequential tasks with dependency ordering |
+| File                          | Content                                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------------------- |
+| `.kiro/steering/tech.md`      | Stack, Clean Architecture, SOLID, security policies, deployment geography, auth config, AI config |
+| `.kiro/specs/requirements.md` | Requirements in EARS syntax (WHEN/SHALL)                                                          |
+| `.kiro/specs/design.md`       | DDD entities, Mermaid diagram, IAM policies, AWS costs                                            |
+| `.kiro/specs/tasks.md`        | Sequential tasks with dependency ordering                                                         |
 
 **Usage:**
 
@@ -140,6 +153,8 @@ const result = await agent2.execute({ agent1Output, preferredStack });
 ```
 
 **API:** `POST /api/generate-spec` → 200 (success) / 400 (validation) / 502 (LLM transient) / 500 (permanent)
+
+**Extended output (v2):** Agent 2 also produces `deploymentRegion`, `dataStorageRegion`, `authConfig` (provider, loginMethods, mfa, sessionLifetime, authorizationModel), and `aiConfig` (model, provider, region, personalDataInPrompts, promptLogging) — consumed by Agent 3 for compliance analysis and Agent 4 for infrastructure decisions.
 
 ## 🧩 Agent 3 — Legal & Compliance (guidelines)
 
@@ -160,13 +175,13 @@ Full handoff documentation in `docs/legal-compliance-handoff.md`.
 
 **Output:**
 
-| File | Content |
-|------|---------|
-| `Dockerfile` | Multi-stage build (deps → build → runtime), non-root user, healthcheck |
-| `docker-compose.yml` | App + DB with isolated networks and persistent volumes |
-| `.github/workflows/ci.yml` | Pipeline: lint, typecheck, test, security, license-check, build, deploy |
-| `.kiro/hooks/validate-specs.sh` | Validates spec file existence and format |
-| `.kiro/hooks/scan-secrets.sh` | Scans staged files for leaked credentials |
+| File                            | Content                                                                 |
+| ------------------------------- | ----------------------------------------------------------------------- |
+| `Dockerfile`                    | Multi-stage build (deps → build → runtime), non-root user, healthcheck  |
+| `docker-compose.yml`            | App + DB with isolated networks and persistent volumes                  |
+| `.github/workflows/ci.yml`      | Pipeline: lint, typecheck, test, security, license-check, build, deploy |
+| `.kiro/hooks/validate-specs.sh` | Validates spec file existence and format                                |
+| `.kiro/hooks/scan-secrets.sh`   | Scans staged files for leaked credentials                               |
 
 ```typescript
 const agent4 = createAgent4({ mockLlmResponse: mockData });
@@ -188,17 +203,18 @@ npm test              # Run all tests
 npm run test:coverage # With coverage report
 ```
 
-| Category | Tests | Covers |
-|----------|-------|--------|
-| Schema unit | 27 | Valid/invalid objects, edge cases |
-| Error unit | 11 | Error construction, field propagation |
-| Use case unit | 16 | Happy path, fallback, error classification |
-| Infrastructure | 8 | Mock loader, file writer |
-| Integration | 25 | Full pipeline end-to-end (Agent 2 + Agent 4) |
-| Property-based (PBT) | 38 | 100 iterations each, universal correctness |
-| **Total** | **125** | **All passing** |
+| Category             | Tests   | Covers                                       |
+| -------------------- | ------- | -------------------------------------------- |
+| Schema unit          | 27      | Valid/invalid objects, edge cases            |
+| Error unit           | 11      | Error construction, field propagation        |
+| Use case unit        | 16      | Happy path, fallback, error classification   |
+| Infrastructure       | 8       | Mock loader, file writer                     |
+| Integration          | 25      | Full pipeline end-to-end (Agent 2 + Agent 4) |
+| Property-based (PBT) | 38      | 100 iterations each, universal correctness   |
+| **Total**            | **125** | **All passing**                              |
 
 **Verified correctness properties:**
+
 1. Schemas reject invalid objects with correct error paths
 2. Valid objects round-trip through schemas without data loss
 3. File writer preserves all output content
