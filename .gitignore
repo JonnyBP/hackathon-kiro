@@ -17,5 +17,8 @@ dist/
 .next/
 coverage/
 *.tsbuildinfo
+
+# Secrets: ignore every env file, keep the documented template
 .env
-.env.local
+.env.*
+!.env.example

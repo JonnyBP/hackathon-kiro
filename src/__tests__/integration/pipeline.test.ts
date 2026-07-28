@@ -7,12 +7,12 @@ import {
   GenerateArchitectureSpecUseCase,
   type LlmPort,
   type FileWriterPort,
-} from "../../application/generate-architecture-spec";
-import { JsonMockLoader } from "../../infrastructure/mock-loader";
-import { KiroFileWriter } from "../../infrastructure/kiro-file-writer";
-import { SYSTEM_PROMPT } from "../../config/system-prompt";
-import { ValidationError } from "../../domain/errors";
-import type { Agent1Output, Agent2Output } from "../../domain/types";
+} from "@/application/generate-architecture-spec";
+import { JsonMockLoader } from "@/infrastructure/mocks/mock-loader";
+import { KiroFileWriter } from "@/infrastructure/writers/kiro-file-writer";
+import { ARCHITECT_SYSTEM_PROMPT } from "@/prompts/architect-agent";
+import { ValidationError } from "@/domain/errors";
+import type { Agent1Output, Agent2Output } from "@/domain/types";
 
 // --- Helpers ---
 
@@ -123,7 +123,7 @@ describe("Integration: End-to-end pipeline", () => {
         mockLlm,
         mockLoader,
         fileWriter,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       // Use a custom file writer targeting our temp dir
@@ -132,7 +132,7 @@ describe("Integration: End-to-end pipeline", () => {
         mockLlm,
         mockLoader,
         tempFileWriter,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       // We need to override writeAll base path — invoke directly
@@ -200,7 +200,7 @@ describe("Integration: End-to-end pipeline", () => {
         mockLlm,
         mockLoader,
         fileWriter,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       // Execute without providing agent1Output — triggers mock fallback
@@ -242,7 +242,7 @@ describe("Integration: End-to-end pipeline", () => {
         mockLlm,
         mockLoader,
         fileWriter,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await expect(

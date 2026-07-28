@@ -6,8 +6,8 @@ import * as fc from "fast-check";
 import { readFile, rm, mkdtemp } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { KiroFileWriter } from "../../infrastructure/kiro-file-writer";
-import { Agent2Output } from "../../domain/types";
+import { KiroFileWriter } from "@/infrastructure/writers/kiro-file-writer";
+import { Agent2Output } from "@/domain/types";
 
 // --- Arbitraries ---
 

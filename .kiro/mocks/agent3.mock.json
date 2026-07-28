@@ -1,0 +1,89 @@
+{
+  "riskLevel": "low",
+  "dataTypes": [
+    { "name": "Product idea text submitted by the user", "collected": true },
+    { "name": "Email address", "collected": false },
+    { "name": "Name", "collected": false },
+    { "name": "Payment data", "collected": false },
+    { "name": "Precise location", "collected": false },
+    { "name": "Session storage content in the user's browser", "collected": true },
+    { "name": "Server-side request logs", "collected": true },
+    { "name": "Special category data", "collected": false }
+  ],
+  "regulations": [
+    {
+      "name": "GDPR",
+      "status": "verification-required",
+      "reason": "EU/EEA jurisdiction. Triggering facts: the product accepts free-text input that a user may populate with personal data, and requests are processed on servers whose region is not declared in the brief. Missing facts: whether the service is offered to EU data subjects, the hosting region, and the retention period of request logs. Required action: confirm territorial scope and hosting region, then document the lawful basis and a retention period for logs."
+    },
+    {
+      "name": "CCPA / CPRA",
+      "status": "verification-required",
+      "reason": "California, United States. Triggering facts: the brief targets software teams without excluding US users. Missing facts: annual revenue, number of California consumers processed, and whether any personal information is sold or shared. Required action: verify the applicability thresholds for the current calendar year before launch."
+    },
+    {
+      "name": "Open-source license compliance",
+      "status": "mandatory",
+      "reason": "Applies wherever the software is distributed. Triggering facts: the product ships third-party dependencies and generates artifacts that embed dependency references. Required action: keep a locked dependency manifest, verify each license against the allowed list in CI, and preserve required attribution notices."
+    },
+    {
+      "name": "AI provider terms and data processing",
+      "status": "mandatory",
+      "reason": "Contractual, applies wherever the provider is used. Triggering facts: user-submitted text is sent to a third-party model provider for processing. Required action: sign or accept the provider's data processing terms, disable training on submitted content where the provider offers that control, and disclose the sub-processor in the privacy notice."
+    },
+    {
+      "name": "Cookie and tracking consent (ePrivacy)",
+      "status": "recommended",
+      "reason": "EU/EEA, only where non-essential storage is used. Triggering facts: the product stores state in the browser's session storage for functional purposes only, which is generally exempt. Required action: keep browser storage strictly functional and document that no analytics or advertising identifiers are set; add a consent mechanism if that changes."
+    },
+    {
+      "name": "COPPA",
+      "status": "not-applicable",
+      "reason": "United States, children under 13. Confirmed facts that exclude the rule: the service is directed at professional software teams, is not child-directed, and the brief declares no features or content aimed at minors, so no actual knowledge of under-13 users arises from the described design."
+    },
+    {
+      "name": "PCI DSS",
+      "status": "not-applicable",
+      "reason": "Contractual security standard for cardholder data environments. Confirmed facts that exclude the rule: the described product collects no payment data and operates no cardholder-data systems. This changes the moment a paid tier is introduced."
+    },
+    {
+      "name": "HIPAA",
+      "status": "not-applicable",
+      "reason": "United States, covered entities and business associates. Confirmed facts that exclude the rule: the product is not offered to health care providers, plans or clearinghouses, and processes no protected health information."
+    }
+  ],
+  "checklist": [
+    {
+      "category": "Legal Documents",
+      "items": [
+        { "label": "Publish a privacy notice listing the model provider as a sub-processor — owner: legal, trigger: before public launch", "checked": false },
+        { "label": "Publish terms of service stating that generated content is not professional advice — owner: legal, trigger: before public launch", "checked": false },
+        { "label": "Document the retention period for server-side request logs — owner: engineering, trigger: before public launch", "checked": false }
+      ]
+    },
+    {
+      "category": "Open-Source Licenses",
+      "items": [
+        { "label": "Keep a locked dependency manifest with exact versions — owner: engineering, trigger: every dependency change", "checked": true },
+        { "label": "Run the license allowlist check in CI and fail the build on violations — owner: engineering, trigger: every pull request", "checked": true },
+        { "label": "Preserve attribution notices for every distributed dependency — owner: engineering, trigger: before each release", "checked": false }
+      ]
+    },
+    {
+      "category": "Privacy Controls",
+      "items": [
+        { "label": "Confirm the hosting region and record it in the privacy notice — owner: engineering, trigger: before public launch", "checked": false },
+        { "label": "Exclude user-submitted idea text from application and error logs — owner: engineering, trigger: before public launch", "checked": false },
+        { "label": "Define and implement a deletion path for stored request logs — owner: engineering, trigger: before public launch", "checked": false }
+      ]
+    },
+    {
+      "category": "AI Compliance",
+      "items": [
+        { "label": "Accept the model provider's data processing terms — owner: legal, trigger: before first production call", "checked": false },
+        { "label": "Disable provider training on submitted content where the control exists — owner: engineering, trigger: before first production call", "checked": false },
+        { "label": "Label every generated section as AI-generated and unverified — owner: product, trigger: before public launch", "checked": true }
+      ]
+    }
+  ]
+}

@@ -5,7 +5,7 @@ import {
   ValidationError,
   LlmError,
   FilesystemError,
-} from "../../domain/errors";
+} from "@/domain/errors";
 
 describe("Agent2Error", () => {
   it("carries category, operation, and context", () => {

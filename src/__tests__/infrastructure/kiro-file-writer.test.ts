@@ -10,9 +10,9 @@ import {
 } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { KiroFileWriter } from "../../infrastructure/kiro-file-writer";
-import { FilesystemError } from "../../domain/errors";
-import { Agent2Output } from "../../domain/types";
+import { KiroFileWriter } from "@/infrastructure/writers/kiro-file-writer";
+import { FilesystemError } from "@/domain/errors";
+import { Agent2Output } from "@/domain/types";
 
 const validOutput: Agent2Output = {
   techSteering: {

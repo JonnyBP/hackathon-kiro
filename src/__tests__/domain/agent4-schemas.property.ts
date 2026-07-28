@@ -5,7 +5,7 @@ import * as fc from "fast-check";
 import {
   Agent4InputSchema,
   Agent4OutputSchema,
-} from "../../domain/schemas";
+} from "@/domain/schemas";
 
 // --- Arbitraries ---
 

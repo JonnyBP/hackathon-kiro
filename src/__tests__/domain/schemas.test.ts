@@ -7,7 +7,7 @@ import {
   DesignSchema,
   TaskItemSchema,
   ExpectedMetricsSchema,
-} from "../../domain/schemas";
+} from "@/domain/schemas";
 
 // --- Valid fixtures ---
 

@@ -5,13 +5,13 @@ import {
   type LlmPort,
   type Agent4MockLoaderPort,
   type Agent4FileWriterPort,
-} from "../../application/generate-devsecops-spec";
-import type { Agent4Input, Agent4Output } from "../../domain/types";
+} from "@/application/generate-devsecops-spec";
+import type { Agent4Input, Agent4Output } from "@/domain/types";
 import {
   ValidationError,
   LlmError,
   FilesystemError,
-} from "../../domain/errors";
+} from "@/domain/errors";
 
 // --- Test fixtures ---
 

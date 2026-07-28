@@ -1,0 +1,74 @@
+{
+  "projectName": "KiroSpec Studio",
+  "stack": [
+    "Next.js 15 (App Router)",
+    "TypeScript",
+    "Node.js 22 LTS",
+    "Zod",
+    "Vitest",
+    "PostgreSQL",
+    "Docker"
+  ],
+  "architecturePattern": "Clean",
+  "securityPolicies": [
+    {
+      "name": "Zod Validation",
+      "description": "Every HTTP boundary validates its payload before any other operation",
+      "enforcement": "Route handler schema check"
+    },
+    {
+      "name": "No Disk Writes From HTTP",
+      "description": "Generation endpoints never write files to the repository",
+      "enforcement": "NoOpFileWriter injected in every handler"
+    },
+    {
+      "name": "Server-Side Credentials",
+      "description": "LLM provider credentials never leave the server process",
+      "enforcement": "process.env read inside route handlers only"
+    },
+    {
+      "name": "Untrusted Agent Output",
+      "description": "Generated artifacts are rendered as escaped plain text, never as markup",
+      "enforcement": "React text nodes inside preformatted blocks"
+    }
+  ],
+  "taskList": [
+    {
+      "id": "task-1",
+      "title": "Domain schemas",
+      "description": "Declare the Zod contracts for every agent input and output",
+      "dependencies": []
+    },
+    {
+      "id": "task-2",
+      "title": "Use cases",
+      "description": "Orchestrate each agent pipeline behind constructor-injected ports",
+      "dependencies": ["task-1"]
+    },
+    {
+      "id": "task-3",
+      "title": "Generation endpoints",
+      "description": "Expose one POST handler per agent with a shared status taxonomy",
+      "dependencies": ["task-2"]
+    },
+    {
+      "id": "task-4",
+      "title": "Report UI",
+      "description": "Render the six report sections with incremental publication",
+      "dependencies": ["task-3"]
+    }
+  ],
+  "complianceReport": {
+    "licenseSummary": [
+      { "package": "next", "license": "MIT" },
+      { "package": "react", "license": "MIT" },
+      { "package": "zod", "license": "MIT" },
+      { "package": "ai", "license": "Apache-2.0" },
+      { "package": "vitest", "license": "MIT" }
+    ],
+    "regulatoryFlags": [
+      "GDPR: territorial scope and hosting region pending verification",
+      "AI provider data processing terms must be accepted before production use"
+    ]
+  }
+}

@@ -7,10 +7,10 @@ import {
   LlmPort,
   MockLoaderPort,
   FileWriterPort,
-} from "../../application/generate-architecture-spec";
-import { ValidationError, LlmError } from "../../domain/errors";
-import { SYSTEM_PROMPT } from "../../config/system-prompt";
-import { Agent1Output, Agent2Output } from "../../domain/types";
+} from "@/application/generate-architecture-spec";
+import { ValidationError, LlmError } from "@/domain/errors";
+import { ARCHITECT_SYSTEM_PROMPT } from "@/prompts/architect-agent";
+import { Agent1Output, Agent2Output } from "@/domain/types";
 
 // --- Valid fixtures ---
 
@@ -118,7 +118,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       const result = await useCase.execute({
@@ -139,13 +139,13 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await useCase.execute({ agent1Output: validAgent1Output });
 
       expect(llm.invoke).toHaveBeenCalledWith(
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
         JSON.stringify(validAgent1Output),
       );
     });
@@ -161,7 +161,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await useCase.execute({});
@@ -179,7 +179,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await useCase.execute({ agent1Output: validAgent1Output });
@@ -198,7 +198,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await useCase.execute({
@@ -222,7 +222,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await useCase.execute({ agent1Output: validAgent1Output });
@@ -245,7 +245,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await expect(
@@ -268,7 +268,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await expect(
@@ -290,7 +290,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await expect(
@@ -312,7 +312,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await expect(
@@ -334,7 +334,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await expect(
@@ -356,7 +356,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       try {
@@ -381,7 +381,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await expect(
@@ -398,7 +398,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       try {
@@ -425,7 +425,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       await expect(
@@ -444,7 +444,7 @@ describe("GenerateArchitectureSpecUseCase", () => {
         llm,
         loader,
         writer,
-        SYSTEM_PROMPT,
+        ARCHITECT_SYSTEM_PROMPT,
       );
 
       try {

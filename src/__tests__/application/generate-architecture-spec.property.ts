@@ -9,10 +9,10 @@ import {
   LlmPort,
   MockLoaderPort,
   FileWriterPort,
-} from "../../application/generate-architecture-spec";
-import { ValidationError } from "../../domain/errors";
-import { SYSTEM_PROMPT } from "../../config/system-prompt";
-import { Agent1Output } from "../../domain/types";
+} from "@/application/generate-architecture-spec";
+import { ValidationError } from "@/domain/errors";
+import { ARCHITECT_SYSTEM_PROMPT } from "@/prompts/architect-agent";
+import { Agent1Output } from "@/domain/types";
 
 // --- Arbitraries for invalid Agent1Output ---
 
@@ -154,7 +154,7 @@ describe("Feature: agent2-architect, Property 4: Input validation precedes LLM i
           mockLlm,
           mockLoader,
           mockFileWriter,
-          SYSTEM_PROMPT,
+          ARCHITECT_SYSTEM_PROMPT,
         );
 
         try {

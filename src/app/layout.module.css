@@ -1,0 +1,27 @@
+/* Skip-link: visually hidden until focused, then appears at top-left */
+.skipLink {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: 9999;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.skipLink:focus {
+  top: var(--space-2);
+}
+
+.header {
+  width: 100%;
+}
+
+.nav {
+  width: 100%;
+}

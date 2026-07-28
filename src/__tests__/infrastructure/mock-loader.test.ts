@@ -3,8 +3,8 @@ import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { writeFile, mkdir, rm, mkdtemp } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { JsonMockLoader } from "../../infrastructure/mock-loader";
-import { ValidationError, FilesystemError } from "../../domain/errors";
+import { JsonMockLoader } from "@/infrastructure/mocks/mock-loader";
+import { ValidationError, FilesystemError } from "@/domain/errors";
 
 const validMockData = {
   projectName: "TestProject",

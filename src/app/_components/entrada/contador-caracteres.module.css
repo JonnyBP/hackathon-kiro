@@ -1,0 +1,11 @@
+.counter {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-align: right;
+  margin-top: var(--space-1);
+}
+
+.counterWarning {
+  color: var(--color-regulation-mandatory);
+  font-weight: var(--font-weight-medium);
+}

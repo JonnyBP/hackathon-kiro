@@ -18,32 +18,45 @@ Idea/Input → Agent 1 → Agent 2 → Agent 3 → Agent 4 → Ready to Code
 
 ```
 hackathon-kiro/
+├── src/
+│   ├── app/                           # Next.js App Router: the ONLY place routes are served from
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── api/generate-spec/route.ts # Agent 2 endpoint
+│   ├── domain/                        # Pure types, Zod schemas, typed errors
+│   │   ├── types.ts
+│   │   ├── schemas.ts
+│   │   └── errors.ts
+│   ├── application/                   # Use cases + port interfaces
+│   │   ├── generate-architecture-spec.ts
+│   │   └── generate-devsecops-spec.ts
+│   ├── infrastructure/                # Adapters, grouped by concern
+│   │   ├── llm/                       # vercel-ai-llm-client.ts, mock-llm-client.ts
+│   │   ├── writers/                   # kiro-file-writer.ts, agent4-file-writer.ts
+│   │   └── mocks/                     # mock-loader.ts, agent4-mock-loader.ts
+│   ├── prompts/                       # One system prompt per agent
+│   │   ├── architect-agent.ts         # ARCHITECT_SYSTEM_PROMPT   (Agent 2)
+│   │   ├── compliance-agent.ts        # COMPLIANCE_SYSTEM_PROMPT  (Agent 3)
+│   │   └── devsecops-agent.ts         # DEVSECOPS_SYSTEM_PROMPT   (Agent 4)
+│   ├── __tests__/                     # Mirrors src layout: domain/, application/, infrastructure/, integration/
+│   └── index.ts                       # Factories: createAgent2(), createAgent4()
 ├── agents/
-│   ├── pm-market-strategist/          # Agent 1: PM & Market Strategist
-│   │   ├── prompt.md                  # Agent system prompt
-│   │   ├── agent-config.json          # Configuration & triggers
-│   │   ├── templates/                 # Output templates (HTML)
-│   │   └── examples/                  # Example inputs/outputs
-│   ├── software-architect/            # Agent 2: Software Architect & Financial Officer
-│   │   └── ...                        # (Owned by teammate)
-│   ├── legal-compliance/              # Agent 3: Legal, Compliance & Privacy Guard
-│   │   └── ...                        # (Owned by teammate)
-│   └── devsecops/                     # Agent 4: DevSecOps & Test Automation Engineer
-│       └── ...                        # (Owned by teammate)
-├── shared/
-│   ├── schemas/                       # Shared validation schemas
-│   └── utils/                         # Shared utilities
-├── output/                            # Generated reports and specs (gitignored)
+│   └── pm-market-strategist/          # Agent 1: prompt, config, templates, examples (no TS implementation)
+├── shared/schemas/                    # JSON contracts not yet modelled in TS
+│   └── market-report-schema.json      # Agent 1 output contract
+├── scripts/                           # demo.ts (Agent 2), demo-agent4.ts (Agent 4)
+├── docs/                              # Team handoff documentation
 └── .kiro/
-    ├── steering/                      # Steering files
-    │   ├── product.md                 # ← Output from Agent 1
-    │   └── tech.md                    # ← Output from Agent 2
-    └── specs/                         # Generated Kiro specs
-        └── requirements.md            # ← Output from Agent 2
-        └── design.md                  # ← Output from Agent 2
-        └── tasks.md                   # ← Output from Agent 2
-        └── compliance.md              # ← Output from Agent 3
+    ├── hooks/                         # validate-specs.sh, scan-secrets.sh (from Agent 4)
+    ├── mocks/                         # agent1, agent2, agent4 mock payloads
+    ├── steering/                      # product.md, tech.md, project-overview.md, compliance.md
+    └── specs/                         # Generated Kiro specs, one folder per feature
 ```
+
+## Import conventions
+
+- Use the `@/*` path alias (mapped to `src/*`) for cross-layer imports. Relative imports are for siblings only.
+- Route handlers must live under `src/app/**`. Anything placed elsewhere is never served by Next.js.
 
 ## Agents Overview
 

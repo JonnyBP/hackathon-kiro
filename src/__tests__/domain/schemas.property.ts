@@ -2,7 +2,7 @@
 // Feature: agent2-architect
 import { describe, it, expect } from "vitest";
 import * as fc from "fast-check";
-import { Agent2OutputSchema, TaskItemSchema } from "../../domain/schemas";
+import { Agent2OutputSchema, TaskItemSchema } from "@/domain/schemas";
 
 // --- Arbitraries ---
 

@@ -5,34 +5,58 @@ export {
   type LlmPort,
   type MockLoaderPort,
   type FileWriterPort,
-} from "./application/generate-architecture-spec";
+} from "@/application/generate-architecture-spec";
 export {
   GenerateDevSecOpsSpecUseCase,
   type Agent4MockLoaderPort,
   type Agent4FileWriterPort,
-} from "./application/generate-devsecops-spec";
-export { VercelAiLlmClient } from "./infrastructure/llm-client";
-export { MockLlmClient } from "./infrastructure/mock-llm-client";
-export { JsonMockLoader } from "./infrastructure/mock-loader";
-export { KiroFileWriter } from "./infrastructure/kiro-file-writer";
-export { Agent4JsonMockLoader } from "./infrastructure/agent4-mock-loader";
-export { Agent4FileWriter } from "./infrastructure/agent4-file-writer";
-export { SYSTEM_PROMPT } from "./config/system-prompt";
-export { AGENT4_SYSTEM_PROMPT } from "./config/agent4-system-prompt";
-export * from "./domain/types";
-export * from "./domain/schemas";
-export * from "./domain/errors";
+} from "@/application/generate-devsecops-spec";
+export {
+  GenerateMarketReportUseCase,
+  type MarketReportMockLoaderPort,
+  type GenerateMarketReportOptions,
+} from "@/application/generate-market-report";
+export {
+  GenerateComplianceReportUseCase,
+  type ComplianceReportMockLoaderPort,
+  type GenerateComplianceReportOptions,
+} from "@/application/generate-compliance-report";
+export { VercelAiLlmClient } from "@/infrastructure/llm/vercel-ai-llm-client";
+export { MockLlmClient } from "@/infrastructure/llm/mock-llm-client";
+export { SchemaObjectLlmClient } from "@/infrastructure/llm/schema-object-llm-client";
+export { JsonMockLoader } from "@/infrastructure/mocks/mock-loader";
+export { Agent4JsonMockLoader } from "@/infrastructure/mocks/agent4-mock-loader";
+export { MarketReportJsonMockLoader } from "@/infrastructure/mocks/market-report-mock-loader";
+export { ComplianceReportJsonMockLoader } from "@/infrastructure/mocks/compliance-mock-loader";
+export { KiroFileWriter } from "@/infrastructure/writers/kiro-file-writer";
+export { Agent4FileWriter } from "@/infrastructure/writers/agent4-file-writer";
+export {
+  NoOpFileWriter,
+  type NoOpWriteInvocation,
+} from "@/infrastructure/writers/no-op-file-writer";
+export { ARCHITECT_SYSTEM_PROMPT } from "@/prompts/architect-agent";
+export { DEVSECOPS_SYSTEM_PROMPT } from "@/prompts/devsecops-agent";
+export { COMPLIANCE_SYSTEM_PROMPT } from "@/prompts/compliance-agent";
+export { MARKET_SYSTEM_PROMPT } from "@/prompts/market-agent";
+export * from "@/domain/types";
+export * from "@/domain/schemas";
+export * from "@/domain/errors";
+export * from "@/domain/market-report";
+export * from "@/domain/market-report-schemas";
+export * from "@/domain/compliance-report";
+export * from "@/domain/compliance-report-schemas";
+export * from "@/domain/api-contracts";
 
-import { GenerateArchitectureSpecUseCase } from "./application/generate-architecture-spec";
-import { VercelAiLlmClient } from "./infrastructure/llm-client";
-import { MockLlmClient } from "./infrastructure/mock-llm-client";
-import { JsonMockLoader } from "./infrastructure/mock-loader";
-import { KiroFileWriter } from "./infrastructure/kiro-file-writer";
-import { SYSTEM_PROMPT } from "./config/system-prompt";
-import { GenerateDevSecOpsSpecUseCase } from "./application/generate-devsecops-spec";
-import { Agent4JsonMockLoader } from "./infrastructure/agent4-mock-loader";
-import { Agent4FileWriter } from "./infrastructure/agent4-file-writer";
-import { AGENT4_SYSTEM_PROMPT } from "./config/agent4-system-prompt";
+import { GenerateArchitectureSpecUseCase } from "@/application/generate-architecture-spec";
+import { GenerateDevSecOpsSpecUseCase } from "@/application/generate-devsecops-spec";
+import { VercelAiLlmClient } from "@/infrastructure/llm/vercel-ai-llm-client";
+import { MockLlmClient } from "@/infrastructure/llm/mock-llm-client";
+import { JsonMockLoader } from "@/infrastructure/mocks/mock-loader";
+import { Agent4JsonMockLoader } from "@/infrastructure/mocks/agent4-mock-loader";
+import { KiroFileWriter } from "@/infrastructure/writers/kiro-file-writer";
+import { Agent4FileWriter } from "@/infrastructure/writers/agent4-file-writer";
+import { ARCHITECT_SYSTEM_PROMPT } from "@/prompts/architect-agent";
+import { DEVSECOPS_SYSTEM_PROMPT } from "@/prompts/devsecops-agent";
 
 export interface CreateAgent2Options {
   /** OpenAI model name (default: "gpt-4o"). Ignored when mockLlmResponse is set. */
@@ -54,7 +78,7 @@ export function createAgent2(options?: CreateAgent2Options) {
     llm,
     mockLoader,
     fileWriter,
-    SYSTEM_PROMPT,
+    ARCHITECT_SYSTEM_PROMPT,
   );
 }
 
@@ -78,6 +102,6 @@ export function createAgent4(options?: CreateAgent4Options) {
     llm,
     mockLoader,
     fileWriter,
-    AGENT4_SYSTEM_PROMPT,
+    DEVSECOPS_SYSTEM_PROMPT,
   );
 }

@@ -5,9 +5,9 @@ import {
   Agent1Output,
   Agent2Output,
   GenerateSpecOptions,
-} from "../domain/types";
-import { Agent1OutputSchema, Agent2OutputSchema } from "../domain/schemas";
-import { ValidationError, LlmError } from "../domain/errors";
+} from "@/domain/types";
+import { Agent1OutputSchema, Agent2OutputSchema } from "@/domain/schemas";
+import { ValidationError, LlmError } from "@/domain/errors";
 
 export interface LlmPort {
   invoke(systemPrompt: string, userPrompt: string): Promise<unknown>;

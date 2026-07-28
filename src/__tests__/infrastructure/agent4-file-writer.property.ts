@@ -4,9 +4,9 @@
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import * as fc from "fast-check";
-import { Agent4FileWriter } from "../../infrastructure/agent4-file-writer";
-import { FilesystemError } from "../../domain/errors";
-import { Agent4Output } from "../../domain/types";
+import { Agent4FileWriter } from "@/infrastructure/writers/agent4-file-writer";
+import { FilesystemError } from "@/domain/errors";
+import { Agent4Output } from "@/domain/types";
 
 // Mock node:fs/promises
 vi.mock("node:fs/promises", () => ({

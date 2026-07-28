@@ -1,9 +1,9 @@
 // src/application/generate-devsecops-spec.ts — Use case orchestrating the Agent 4 pipeline
 
 import { z } from "zod";
-import { Agent4Input, Agent4Output } from "../domain/types";
-import { Agent4InputSchema, Agent4OutputSchema } from "../domain/schemas";
-import { ValidationError, LlmError, FilesystemError } from "../domain/errors";
+import { Agent4Input, Agent4Output } from "@/domain/types";
+import { Agent4InputSchema, Agent4OutputSchema } from "@/domain/schemas";
+import { ValidationError, LlmError, FilesystemError } from "@/domain/errors";
 
 export interface LlmPort {
   invoke(systemPrompt: string, userPrompt: string): Promise<unknown>;

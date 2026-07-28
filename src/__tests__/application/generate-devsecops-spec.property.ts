@@ -7,9 +7,9 @@ import {
   LlmPort,
   Agent4MockLoaderPort,
   Agent4FileWriterPort,
-} from "../../application/generate-devsecops-spec";
-import { ValidationError, LlmError } from "../../domain/errors";
-import { Agent4Input, Agent4Output } from "../../domain/types";
+} from "@/application/generate-devsecops-spec";
+import { ValidationError, LlmError } from "@/domain/errors";
+import { Agent4Input, Agent4Output } from "@/domain/types";
 
 // --- Helpers ---
 
