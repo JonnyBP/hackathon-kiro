@@ -36,7 +36,7 @@ export class JsonMockLoader implements MockLoaderPort {
 
     const result = Agent1OutputSchema.safeParse(parsed);
     if (!result.success) {
-      const issue = result.error.issues[0];
+      const issue = result.error.issues[0]!;
       throw new ValidationError(
         issue.path.join("."),
         issue.message,
