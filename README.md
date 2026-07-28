@@ -236,7 +236,7 @@ npm run test:coverage # With coverage report
 
 - **Elena Menéndez** ([@elecodes](https://github.com/elecodes)) — Agent 2, UI Demo
 - **Jonathan Brasales** ([@JonnyBP](https://github.com/JonnyBP)) — Agent 4, documentation
-- **xxx** ([@xxx](https://github.com/xxx)) — Agent 1
-- **xxx** ([@xxx](https://github.com/xxx)) — Agent 3
+- **xxx** ([@andriaDev95](https://github.com/andriaDev95)) — Agent 1
+- **xxx** ([@Cggtabares](https://github.com/Cggtabares)) — Agent 3
 
 **Organization:** [hackathon-kiro](https://github.com/JonnyBP/hackathon-kiro)
